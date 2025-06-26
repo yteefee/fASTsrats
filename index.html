@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastStars</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --primary: #3390ec;
+            --secondary: #2a7bc8;
+            --accent: #ffc107;
+            --dark: #17212b;
+            --light: #f5f5f5;
+            --success: #28a745;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.5;
+            padding-bottom: 60px;
+        }
+
+        .page {
+            display: none;
+            padding: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 15px 0 10px;
+            color: var(--dark);
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .btn {
+            display: block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-accent {
+            background: linear-gradient(to right, #ff9800, #ffc107);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 15px 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            border-top: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 5px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Темная тема */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: white;
+            }
+
+            .card {
+                background-color: #1e1e1e;
+                border-color: #333;
+            }
+
+            .nav {
+                background-color: #1e1e1e;
+                border-color: #333;
+            }
+
+            .stat-label, th {
+                color: #aaa;
+            }
+
+            .divider {
+                background-color: #333;
+            }
+
+            .menu-item {
+                border-color: #333;
+            }
+
+            .btn-outline {
+                background-color: #1e1e1e;
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="header-title">FastStars 2024</h1>
+    </header>
+
+    <!-- Страница 1: Главная -->
+    <div class="page active" id="page1">
+        <div class="card">
+            <h2>FastStars</h2>
+            
+            <h3>Вывести</h3>
+            <div class="menu-item">
+                <span>STARS</span>
+            </div>
+            <div class="menu-item">
+                <span>TON</span>
+            </div>
+            <div class="menu-item">
+                <span>Купить звёзды</span>
+            </div>
+            <p style="font-size: 14px; color: #666; margin-top: 5px;">
+                Покупай телеграм звезды выгодно
+            </p>
+            
+            <h3 style="margin-top: 20px;">История транзакций</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Концепт</th>
+                        <th>Маркет</th>
+                        <th>Чеки</th>
+                        <th>Партнёрство</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@WalletStarsBot</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Страница 2: Маркет -->
+    <div class="page" id="page2">
+        <div class="card">
+            <h2>Маркет FastStars</h2>
+            <p>Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
+            
+            <div class="divider"></div>
+            
+            <h3>Купить звёзды</h3>
+            <button class="btn">Купить</button>
+            
+            <div class="divider"></div>
+            
+            <h3>Продать звёзды</h3>
+            <button class="btn">Продать</button>
+            
+            <div class="divider"></div>
+            
+            <div class="menu-item">
+                <span>Кошелёк</span>
+            </div>
+            <div class="menu-item">
+                <span>Маркет</span>
+            </div>
+            <div class="menu-item">
+                <span>Чеки</span>
+            </div>
+            <div class="menu-item">
+                <span>Партнёрство</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            @WalletStarsBot
+        </div>
+    </div>
+
+    <!-- Страница 3: Партнерка -->
+    <div class="page" id="page3">
+        <div class="card">
+            <h2>FastStars | Купить Звёзды</h2>
+            
+            <div class="stats">
+                <span class="badge">50%</span>
+                <p class="stat-label">Твой процент</p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <p class="stat-label">Приглашено</p>
+            <p class="stat-value">0</p>
+            
+            <p class="stat-label">Заработок</p>
+            <p class="stat-value">0.00 TON</p>
+            
+            <button class="btn btn-accent" id="invite-btn">Пригласить</button>
+            
+            <div class="divider"></div>
+            
+            <div class="menu-item">
+                <span>Кошелёк</span>
+            </div>
+            <div class="menu-item">
+                <span>Маркет</span>
+            </div>
+            <div class="menu-item">
+                <span>Чеки</span>
+            </div>
+            <div class="menu-item">
+                <span>Партнёрство</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            @WalletStarsBot
+        </div>
+    </div>
+
+    <!-- Навигационное меню -->
+    <div class="nav">
+        <div class="nav-item active" data-page="page1">
+            <i>🏠</i><br>Главная
+        </div>
+        <div class="nav-item" data-page="page2">
+            <i>🛒</i><br>Маркет
+        </div>
+        <div class="nav-item" data-page="page3">
+            <i>👥</i><br>Партнерка
+        </div>
+    </div>
+
+    <script>
+        // Инициализация Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        // Навигация между страницами
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Убираем активный класс у всех
+                document.querySelectorAll('.nav-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                document.querySelectorAll('.page').forEach(p => {
+                    p.classList.remove('active');
+                });
+                
+                // Добавляем активный класс текущему
+                this.classList.add('active');
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+                
+                // Обновляем заголовок
+                updateHeaderTitle(pageId);
+            });
+        });
+        
+        // Обновление заголовка
+        function updateHeaderTitle(pageId) {
+            const titles = {
+                'page1': '2024',
+                'page2': 'Маркет FastStars',
+                'page3': 'FastStars | Купить Звёзды'
+            };
+            document.getElementById('header-title').textContent = titles[pageId];
+        }
+        
+        // Кнопка приглашения
+        document.getElementById('invite-btn').addEventListener('click', function() {
+            tg.openTelegramLink('https://t.me/WalletStarsBot?startapp=1072790585');
+        });
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelector('.page.active').style.opacity = 1;
+            }, 100);
+        });
+    </script>
+</body>
+</html>
