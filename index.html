@@ -168,16 +168,11 @@
         }
         
         /* Стили для маркета */
-        .market-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .market-actions {
+         .market-actions {
             display: flex;
             justify-content: space-between;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .market-action {
@@ -185,15 +180,58 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+        }
+
+        .action-card {
+            width: 100%;
+            background-color: #1e1e1e;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .buy-card {
+            border: 1px solid rgba(0, 122, 255, 0.3);
+        }
+
+        .sell-card {
+            border: 1px solid rgba(255, 59, 48, 0.3);
+        }
+
+        .action-gif-container {
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
         }
 
         .action-gif {
             width: 100%;
-            height: 120px;
-            border-radius: 12px;
+            height: 100%;
             object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        .action-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .buy-title {
+            color: #ffffff;
+        }
+
+        .sell-title {
+            color: #ffffff;
         }
 
         .action-button {
@@ -204,24 +242,22 @@
             font-weight: 500;
             cursor: pointer;
             border: none;
-            text-align: center;
+            transition: all 0.2s ease;
         }
 
-        .buy-action .action-button {
+        .buy-button {
             background-color: #007aff;
             color: white;
         }
 
-        .sell-action .action-button {
+        .sell-button {
             background-color: #ff3b30;
             color: white;
         }
 
-        .action-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #ffffff;
-            text-align: center;
+        .action-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
         
         /* Стили для чеков */
@@ -420,6 +456,10 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <header>FastStars | Купить звёзды</header>
+        
+        <!-- Кошелёк -->
         <div class="page active" id="wallet">
             <div class="content">
                 <div class="user-profile">
@@ -452,10 +492,6 @@
                         <span class="balance-label">USDT</span>
                         <span class="balance-value">10.00</span>
                     </div>
-                    <div class="balance-item">
-                        <span class="balance-label"></span>
-                        <span class="balance-value">08</span>
-                    </div>
                 </div>
                 
                 <hr>
@@ -467,23 +503,39 @@
         </div>
         
         <!-- Маркет -->
-        <div class="page" id="market">
+       <div class="page" id="market">
         <div class="content">
             <div class="section-title">Маркет FastStars</div>
             <p class="info-text">Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
             
-            <div class="market-content">
-                <div class="market-actions">
-                    <div class="market-action buy-action">
-                        <div class="action-title">Купить звёзды</div>
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhW6Q8kLZxqjm/giphy.gif" class="action-gif" alt="Купить звёзды">
-                        <button class="action-button" id="buy-btn">Купить</button>
+            <div class="market-actions">
+                <!-- Блок покупки -->
+                <div class="market-action">
+                    <div class="action-card buy-card">
+                        <div class="action-gif-container">
+                            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhW6Q8kLZxqjm/giphy.gif" 
+                                 class="action-gif" 
+                                 alt="Купить звёзды">
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title buy-title">Купить звёзды</div>
+                            <button class="action-button buy-button" id="buy-btn">Купить</button>
+                        </div>
                     </div>
-                    
-                    <div class="market-action sell-action">
-                        <div class="action-title">Продать звёзды</div>
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMGupUKVngOuUy4/giphy.gif" class="action-gif" alt="Продать звёзды">
-                        <button class="action-button" id="sell-btn">Продать</button>
+                </div>
+                
+                <!-- Блок продажи -->
+                <div class="market-action">
+                    <div class="action-card sell-card">
+                        <div class="action-gif-container">
+                            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMGupUKVngOuUy4/giphy.gif" 
+                                 class="action-gif" 
+                                 alt="Продать звёзды">
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title sell-title">Продать звёзды</div>
+                            <button class="action-button sell-button" id="sell-btn">Продать</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -687,7 +739,7 @@
                 }
                 
                 // Обновляем реферальную ссылку
-                document.getElementById('ref-link').textContent = `https://t.me/FastStarsBot?startapp=${user.id}`;
+                document.getElementById('ref-link').textContent = `https://t.me/selllstart_bot?startapp=${user.id}`;
             }
             
             // Навигация по страницам
