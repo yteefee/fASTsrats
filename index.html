@@ -168,7 +168,7 @@
         }
         
         /* Стили для маркета */
-         .market-actions {
+        .market-actions {
             display: flex;
             justify-content: space-between;
             gap: 15px;
@@ -227,11 +227,11 @@
         }
 
         .buy-title {
-            color: #ffffff;
+            color: #007aff;
         }
 
         .sell-title {
-            color: #ffffff;
+            color: #ff3b30;
         }
 
         .action-button {
@@ -259,7 +259,128 @@
             opacity: 0.9;
             transform: translateY(-2px);
         }
+
+        /* Стили для покупки звёзд */
+        .buy-stars-container {
+            padding: 16px;
+        }
         
+        .recipient-input {
+            background-color: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 12px 16px;
+            width: 100%;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .stars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stars-option {
+            background-color: #2c2c2e;
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .stars-option.active {
+            background-color: #007aff;
+        }
+        
+        .stars-amount {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stars-currency {
+            font-size: 14px;
+            color: #8e8e93;
+        }
+        
+        .stars-option.active .stars-currency {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 14px;
+            width: 100%;
+        }
+        
+        .price-label {
+            color: #8e8e93;
+        }
+        
+        .price-amount {
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .payment-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2c2c2e;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .payment-option.active {
+            background-color: #007aff;
+        }
+        
+        .payment-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        
+        .confirm-button {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .yellow-star {
+            color: #FFD700;
+        }
+
         /* Стили для чеков */
         .checks-info {
             background-color: #1e1e1e;
@@ -298,166 +419,13 @@
             text-align: center;
         }
         
-        /* Стили для покупки звезд */
-        .buy-stars-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .input-field {
-            background-color: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 12px 16px;
-            width: 100%;
-            color: white;
-            font-size: 16px;
-        }
-        
-        .input-field::placeholder {
-            color: #8e8e93;
-        }
-        
-        .stars-section {
-            background-color: #1e1e1e;
-            border-radius: 12px;
+        /* Стили для продажи звёзд */
+        .sell-stars-container {
             padding: 16px;
-        }
-        
-        .stars-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 12px;
-        }
-        
-        .stars-option {
-            background-color: #2c2c2e;
-            border-radius: 10px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .stars-option.active {
-            background-color: #007aff;
-        }
-        
-        .stars-amount {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        
-        .stars-currency {
-            font-size: 14px;
-            color: #8e8e93;
-        }
-        
-        .stars-option.active .stars-currency {
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .price-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-            font-size: 14px;
-        }
-        
-        .price-amount {
-            color: #8e8e93;
-        }
-        
-        /* Стили для платежных методов */
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 16px;
-        }
-        
-        .payment-option {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #2c2c2e;
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 14px;
-        }
-        
-        .payment-option.active {
-            background-color: #007aff;
-        }
-        
-        .payment-icon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-            margin-right: 8px;
-        }
-        
-        .confirm-button {
-            background-color: #007aff;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 500;
-            width: 100%;
-            margin-top: 16px;
-            cursor: pointer;
-        }
-        
-        /* Обновленные стили для профиля пользователя */
-        .user-profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #007aff;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 24px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .user-info {
-            text-align: center;
-        }
-        
-        .user-name {
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 4px;
-            color: #ffffff;
-        }
-        
-        .user-tag {
-            color: #8e8e93;
-            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>FastStars | Купить звёзды</header>
         
         <!-- Кошелёк -->
         <div class="page active" id="wallet">
@@ -503,44 +471,42 @@
         </div>
         
         <!-- Маркет -->
-       <div class="page" id="market">
-        <div class="content">
-            <div class="section-title">Маркет FastStars</div>
-            <p class="info-text">Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
-            
-            <div class="market-actions">
-                <!-- Блок покупки -->
-                <div class="market-action">
-                    <div class="action-card buy-card">
-                        <div class="action-gif-container">
-                            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhW6Q8kLZxqjm/giphy.gif" 
-                                 class="action-gif" 
-                                 alt="Купить звёзды">
-                        </div>
-                        <div class="action-content">
-                            <div class="action-title buy-title">Купить звёзды</div>
-                            <button class="action-button buy-button" id="buy-btn">Купить</button>
+        <div class="page" id="market">
+            <div class="content">
+                <div class="section-title">Маркет FastStars</div>
+                <p class="info-text">Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
+                
+                <div class="market-actions">
+                    <div class="market-action">
+                        <div class="action-card buy-card">
+                            <div class="action-gif-container">
+                                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhW6Q8kLZxqjm/giphy.gif" 
+                                     class="action-gif" 
+                                     alt="Купить звёзды">
+                            </div>
+                            <div class="action-content">
+                                <div class="action-title buy-title">Купить звёзды</div>
+                                <button class="action-button buy-button" id="buy-btn">Купить</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Блок продажи -->
-                <div class="market-action">
-                    <div class="action-card sell-card">
-                        <div class="action-gif-container">
-                            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMGupUKVngOuUy4/giphy.gif" 
-                                 class="action-gif" 
-                                 alt="Продать звёзды">
-                        </div>
-                        <div class="action-content">
-                            <div class="action-title sell-title">Продать звёзды</div>
-                            <button class="action-button sell-button" id="sell-btn">Продать</button>
+                    
+                    <div class="market-action">
+                        <div class="action-card sell-card">
+                            <div class="action-gif-container">
+                                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMGupUKVngOuUy4/giphy.gif" 
+                                     class="action-gif" 
+                                     alt="Продать звёзды">
+                            </div>
+                            <div class="action-content">
+                                <div class="action-title sell-title">Продать звёзды</div>
+                                <button class="action-button sell-button" id="sell-btn">Продать</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
         
         <!-- Чеки -->
         <div class="page" id="checks">
@@ -584,78 +550,82 @@
         <div class="page" id="buy-stars">
             <div class="content">
                 <div class="buy-stars-container">
-                    <input type="text" class="input-field" placeholder="Введите @username получателя">
+                    <input type="text" class="recipient-input" id="recipient-input" placeholder="Введите @username получателя">
                     
-                    <div class="stars-section">
-                        <div class="section-title">STARS</div>
-                        <div class="stars-grid">
-                            <div class="stars-option active" data-amount="50" data-price="0.2923">
-                                <div class="stars-amount">50</div>
-                                <div class="stars-currency">★</div>
-                                <div class="price-info">
-                                    <span class="price-amount">≈0.2923</span>
-                                </div>
+                    <div class="stars-grid">
+                        <div class="stars-option" data-amount="50" data-price-ton="0.2929" data-price-rub="29.29">
+                            <div class="stars-amount">50 <span class="stars-currency">★</span></div>
+                            <div class="price-info">
+                                <span class="price-label">STARS</span>
+                                <span class="price-amount">≈0.2929</span>
                             </div>
-                            <div class="stars-option" data-amount="100" data-price="0.5846">
-                                <div class="stars-amount">100</div>
-                                <div class="stars-currency">★</div>
-                                <div class="price-info">
-                                    <span class="price-amount">≈0.5846</span>
-                                </div>
+                        </div>
+                        <div class="stars-option active" data-amount="100" data-price-ton="0.5858" data-price-rub="58.58">
+                            <div class="stars-amount">100 <span class="yellow-star">★</span></div>
+                            <div class="price-info">
+                                <span class="price-label">STARS</span>
+                                <span class="price-amount">≈0.5858</span>
                             </div>
-                            <div class="stars-option" data-amount="1000" data-price="5.8460">
-                                <div class="stars-amount">1000</div>
-                                <div class="stars-currency">★</div>
-                                <div class="price-info">
-                                    <span class="price-amount">≈5.8460</span>
-                                </div>
+                        </div>
+                        <div class="stars-option" data-amount="500" data-price-ton="2.9290" data-price-rub="292.90">
+                            <div class="stars-amount">500 <span class="stars-currency">★</span></div>
+                            <div class="price-info">
+                                <span class="price-label">STARS</span>
+                                <span class="price-amount">≈2.9290</span>
                             </div>
-                            <div class="stars-option" data-amount="5000" data-price="29.2300">
-                                <div class="stars-amount">5000</div>
-                                <div class="stars-currency">★</div>
-                                <div class="price-info">
-                                    <span class="price-amount">≈29.2300</span>
-                                </div>
+                        </div>
+                        <div class="stars-option" data-amount="1000" data-price-ton="5.8580" data-price-rub="585.80">
+                            <div class="stars-amount">1000 <span class="stars-currency">★</span></div>
+                            <div class="price-info">
+                                <span class="price-label">STARS</span>
+                                <span class="price-amount">≈5.8580</span>
+                            </div>
+                        </div>
+                        <div class="stars-option" data-amount="5000" data-price-ton="29.2900" data-price-rub="2929.00">
+                            <div class="stars-amount">5000 <span class="stars-currency">★</span></div>
+                            <div class="price-info">
+                                <span class="price-label">STARS</span>
+                                <span class="price-amount">≈29.2900</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="stars-section">
-                        <div class="payment-methods">
-                            <div class="payment-option active">
-                                <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png" class="payment-icon" alt="TON">
-                                TON
-                            </div>
-                            <div class="payment-option">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Ruble_sign.svg/1200px-Ruble_sign.svg.png" class="payment-icon" alt="RUB">
-                                RUB
-                            </div>
-                            <div class="payment-option">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Ruble_sign.svg/1200px-Ruble_sign.svg.png" class="payment-icon" alt="RUB">
-                                RUB
-                            </div>
-                            <div class="payment-option">
-                                <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png" class="payment-icon" alt="TON">
-                                TON
-                            </div>
-                            <div class="payment-option">
-                                <img src="https://cryptologos.cc/logos/counter-strike-cs-logo.png" class="payment-icon" alt="CS2">
-                                CS2
-                            </div>
-                            <div class="payment-option">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png" class="payment-icon" alt="USD">
-                                USD
-                            </div>
-                            <div class="payment-option">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1200px-Flag_of_Europe.svg.png" class="payment-icon" alt="EUR">
-                                EUR
-                            </div>
+                    <div class="payment-methods">
+                        <div class="payment-option active" data-currency="ton">
+                            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png" class="payment-icon" alt="TON">
+                            TON
+                        </div>
+                        <div class="payment-option" data-currency="rub">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Ruble_sign.svg/1200px-Ruble_sign.svg.png" class="payment-icon" alt="RUB">
+                            RUB
+                        </div>
+                        <div class="payment-option" data-currency="rub">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Ruble_sign.svg/1200px-Ruble_sign.svg.png" class="payment-icon" alt="RUB">
+                            RUB
+                        </div>
+                        <div class="payment-option" data-currency="ton">
+                            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png" class="payment-icon" alt="TON">
+                            TON
+                        </div>
+                        <div class="payment-option" data-currency="cs2">
+                            <img src="https://cryptologos.cc/logos/counter-strike-cs-logo.png" class="payment-icon" alt="CS2">
+                            CS2
+                        </div>
+                        <div class="payment-option" data-currency="usd">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png" class="payment-icon" alt="USD">
+                            USD
+                        </div>
+                        <div class="payment-option" data-currency="eur">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1200px-Flag_of_Europe.svg.png" class="payment-icon" alt="EUR">
+                            EUR
+                        </div>
+                        <div class="payment-option" data-currency="visa">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" class="payment-icon" alt="VISA">
+                            VISA
                         </div>
                     </div>
                     
                     <button class="confirm-button" id="confirm-buy">Купить звёзды</button>
-                    
-                    <p class="info-text">Покупая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
                 </div>
             </div>
         </div>
@@ -663,19 +633,21 @@
         <!-- Продажа звёзд -->
         <div class="page" id="sell-stars">
             <div class="content">
-                <div class="balance-item">
-                    <span class="balance-label">Количество звёзд</span>
-                    <span class="balance-value" id="sell-amount">50</span>
+                <div class="sell-stars-container">
+                    <div class="balance-item">
+                        <span class="balance-label">Количество звёзд</span>
+                        <span class="balance-value" id="sell-amount">50</span>
+                    </div>
+                    
+                    <div class="balance-item">
+                        <span class="balance-label">Вы получите</span>
+                        <span class="balance-value" id="receive-amount">0.45 TON</span>
+                    </div>
+                    
+                    <p class="info-text">Продавая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
+                    
+                    <button class="button" id="confirm-sell">Продать звёзды</button>
                 </div>
-                
-                <div class="balance-item">
-                    <span class="balance-label">Вы получите</span>
-                    <span class="balance-value" id="receive-amount">0.45 TON</span>
-                </div>
-                
-                <p class="info-text">Продавая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
-                
-                <button class="button" id="confirm-sell">Продать звёзды</button>
             </div>
         </div>
         
@@ -739,7 +711,7 @@
                 }
                 
                 // Обновляем реферальную ссылку
-                document.getElementById('ref-link').textContent = `https://t.me/selllstart_bot?startapp=${user.id}`;
+                document.getElementById('ref-link').textContent = `https://t.me/FastStarsBot?startapp=${user.id}`;
             }
             
             // Навигация по страницам
@@ -774,35 +746,49 @@
                 document.getElementById('sell-stars').classList.add('active');
             });
             
-            // Выбор количества звёзд для покупки
+            // Автозаполнение username при нажатии на поле ввода
+            document.getElementById('recipient-input').addEventListener('click', function() {
+                if (tg.initDataUnsafe.user && tg.initDataUnsafe.user.username) {
+                    this.value = '@' + tg.initDataUnsafe.user.username;
+                }
+            });
+            
+            // Выбор количества звёзд
             const starOptions = document.querySelectorAll('#buy-stars .stars-option');
             starOptions.forEach(option => {
                 option.addEventListener('click', function() {
-                    if (!this.dataset.amount) return;
-                    
-                    // Удаляем активный класс у всех вариантов в той же секции
-                    const parentSection = this.closest('.stars-section');
-                    parentSection.querySelectorAll('.stars-option').forEach(opt => {
-                        opt.classList.remove('active');
-                    });
-                    
-                    // Добавляем активный класс к выбранному варианту
+                    starOptions.forEach(opt => opt.classList.remove('active'));
                     this.classList.add('active');
-                    
-                    // Обновляем выбранное количество и цену
-                    document.getElementById('selected-amount').textContent = this.dataset.amount;
-                    document.getElementById('selected-price').textContent = this.dataset.price;
+                    updatePrices();
                 });
             });
             
             // Выбор способа оплаты
-            const paymentMethods = document.querySelectorAll('.payment-option');
-            paymentMethods.forEach(method => {
-                method.addEventListener('click', function() {
-                    paymentMethods.forEach(m => m.classList.remove('active'));
+            const paymentOptions = document.querySelectorAll('#buy-stars .payment-option');
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('active'));
                     this.classList.add('active');
+                    updatePrices();
                 });
             });
+            
+            // Обновление цен в зависимости от выбранной валюты
+            function updatePrices() {
+                const activeCurrency = document.querySelector('#buy-stars .payment-option.active').dataset.currency;
+                const isTon = activeCurrency === 'ton';
+                
+                document.querySelectorAll('#buy-stars .stars-option').forEach(option => {
+                    const priceElement = option.querySelector('.price-amount');
+                    const priceTon = option.dataset.priceTon;
+                    const priceRub = option.dataset.priceRub;
+                    
+                    priceElement.textContent = '≈' + (isTon ? priceTon : priceRub);
+                });
+            }
+            
+            // Инициализация цен
+            updatePrices();
             
             // Кнопка "Купить звёзды"
             document.getElementById('confirm-buy').addEventListener('click', function() {
