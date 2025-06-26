@@ -231,6 +231,45 @@
             padding: 16px;
             margin: 16px 0;
         }
+        
+        /* Новые стили для профиля пользователя */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 0 16px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #007aff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .user-tag {
+            color: #8e8e93;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -240,6 +279,14 @@
         <!-- Кошелёк -->
         <div class="page active" id="wallet">
             <div class="content">
+                <div class="user-profile">
+                    <div class="user-avatar" id="user-avatar"></div>
+                    <div class="user-info">
+                        <div class="user-name" id="user-name">Пользователь</div>
+                        <div class="user-tag" id="user-tag">@username</div>
+                    </div>
+                </div>
+                
                 <div class="wallet-header">
                     <div class="section-title">Заберите</div>
                     <div class="wallet-id">#423994</div>
@@ -433,9 +480,21 @@
                 const user = tg.initDataUnsafe.user;
                 const userName = document.getElementById('user-name');
                 const userAvatar = document.getElementById('user-avatar');
+                const userTag = document.getElementById('user-tag');
                 
                 // Устанавливаем имя пользователя
-                userName.textContent = user.first_name || user.username || 'Пользователь';
+                if (user.first_name || user.last_name) {
+                    userName.textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim();
+                } else {
+                    userName.textContent = user.username || 'Пользователь';
+                }
+                
+                // Устанавливаем тег пользователя
+                if (user.username) {
+                    userTag.textContent = `@${user.username}`;
+                } else {
+                    userTag.textContent = `id${user.id}`;
+                }
                 
                 // Устанавливаем аватар
                 if (user.photo_url) {
@@ -448,10 +507,8 @@
                     userAvatar.textContent = `${firstNameLetter}${lastNameLetter}`;
                 }
                 
-                // Устанавливаем username
-                if (user.username) {
-                    document.querySelector('.wallet-tag').textContent = `@${user.username}`;
-                }
+                // Обновляем реферальную ссылку
+                document.getElementById('ref-link').textContent = `https://t.me/WalletStarsBot?startapp=${user.id}`;
             }
             
             // Навигация по страницам
@@ -524,12 +581,6 @@
             document.getElementById('invite-btn').addEventListener('click', function() {
                 tg.share(`Присоединяйся к WalletStars и получай бонусы! ${document.getElementById('ref-link').textContent}`);
             });
-            
-            // Инициализация данных пользователя
-            if (tg.initDataUnsafe.user) {
-                const user = tg.initDataUnsafe.user;
-                document.getElementById('ref-link').textContent = `https://t.me/WalletStarsBot?startapp=${user.id}`;
-            }
         });
     </script>
 </body>
