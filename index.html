@@ -428,6 +428,32 @@
             const tg = window.Telegram.WebApp;
             tg.expand();
             
+            // Получаем данные пользователя из Telegram
+            if (tg.initDataUnsafe.user) {
+                const user = tg.initDataUnsafe.user;
+                const userName = document.getElementById('user-name');
+                const userAvatar = document.getElementById('user-avatar');
+                
+                // Устанавливаем имя пользователя
+                userName.textContent = user.first_name || user.username || 'Пользователь';
+                
+                // Устанавливаем аватар
+                if (user.photo_url) {
+                    userAvatar.style.backgroundImage = `url(${user.photo_url})`;
+                    userAvatar.textContent = '';
+                } else {
+                    // Если нет фото, показываем инициалы
+                    const firstNameLetter = user.first_name ? user.first_name[0] : 'П';
+                    const lastNameLetter = user.last_name ? user.last_name[0] : '';
+                    userAvatar.textContent = `${firstNameLetter}${lastNameLetter}`;
+                }
+                
+                // Устанавливаем username
+                if (user.username) {
+                    document.querySelector('.wallet-tag').textContent = `@${user.username}`;
+                }
+            }
+            
             // Навигация по страницам
             const menuItems = document.querySelectorAll('.menu-item');
             const pages = document.querySelectorAll('.page');
