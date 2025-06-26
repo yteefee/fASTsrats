@@ -168,11 +168,60 @@
         }
         
         /* Стили для маркета */
-        .market-options {
+        .market-content {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-top: 24px;
+            gap: 20px;
+        }
+
+        .market-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .market-action {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-gif {
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        .action-button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .buy-action .action-button {
+            background-color: #007aff;
+            color: white;
+        }
+
+        .sell-action .action-button {
+            background-color: #ff3b30;
+            color: white;
+        }
+
+        .action-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
         }
         
         /* Стили для чеков */
@@ -371,10 +420,6 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>FastStars | Купить звёзды</header>
-        
-        <!-- Кошелёк -->
         <div class="page active" id="wallet">
             <div class="content">
                 <div class="user-profile">
@@ -423,16 +468,27 @@
         
         <!-- Маркет -->
         <div class="page" id="market">
-            <div class="content">
-                <div class="section-title">Маркет FastStars</div>
-                <p class="info-text">Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
-                
-                <div class="market-options">
-                    <button class="button" id="buy-btn">Купить звёзды</button>
-                    <button class="button secondary" id="sell-btn">Продать звёзды</button>
+        <div class="content">
+            <div class="section-title">Маркет FastStars</div>
+            <p class="info-text">Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
+            
+            <div class="market-content">
+                <div class="market-actions">
+                    <div class="market-action buy-action">
+                        <div class="action-title">Купить звёзды</div>
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhW6Q8kLZxqjm/giphy.gif" class="action-gif" alt="Купить звёзды">
+                        <button class="action-button" id="buy-btn">Купить</button>
+                    </div>
+                    
+                    <div class="market-action sell-action">
+                        <div class="action-title">Продать звёзды</div>
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4a3F1b3Z1b3R3Y2V0Y2R5Z2V6d3F6Z3Z3eGJtY3BmZ2JmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMGupUKVngOuUy4/giphy.gif" class="action-gif" alt="Продать звёзды">
+                        <button class="action-button" id="sell-btn">Продать</button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
         
         <!-- Чеки -->
         <div class="page" id="checks">
