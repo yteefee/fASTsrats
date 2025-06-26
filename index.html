@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WalletStars | Купить звёзды</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,93 +14,128 @@
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #ffffff;
+            color: #000000;
             max-width: 100%;
             overflow-x: hidden;
         }
         
         .container {
-            max-width: 430px;
+            width: 100%;
+            max-width: 380px;
             margin: 0 auto;
             background-color: white;
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
         }
         
         header {
-            padding: 15px;
+            padding: 16px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 600;
             border-bottom: 1px solid #e0e0e0;
             text-align: center;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #007aff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .user-name {
+            font-weight: 500;
+            font-size: 16px;
         }
         
         .content {
-            padding: 15px;
+            padding: 16px;
         }
         
         h2 {
             font-size: 16px;
-            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
         
         h3 {
             font-size: 14px;
-            margin: 10px 0;
+            font-weight: 500;
+            margin: 8px 0;
+            color: #333333;
         }
         
         hr {
             border: none;
             border-top: 1px solid #e0e0e0;
-            margin: 10px 0;
+            margin: 12px 0;
         }
         
         .balance-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 10px 0;
+            margin: 12px 0;
+            font-size: 14px;
         }
         
         .balance-table td {
-            padding: 5px 0;
+            padding: 6px 0;
+            vertical-align: middle;
         }
         
         .balance-table td:last-child {
             text-align: right;
+            font-weight: 500;
         }
         
         .button-row {
             display: flex;
             justify-content: space-between;
-            margin: 15px 0;
+            margin: 16px 0;
+            gap: 8px;
         }
         
         .button {
             background-color: #007aff;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: 8px;
             font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             text-align: center;
             flex: 1;
-            margin: 0 5px;
         }
         
         .button.secondary {
-            background-color: #e0e0e0;
-            color: #333;
+            background-color: #e5e5ea;
+            color: #000000;
         }
         
         .nav {
             position: fixed;
             bottom: 0;
             width: 100%;
-            max-width: 430px;
+            max-width: 380px;
             display: flex;
             background-color: white;
             border-top: 1px solid #e0e0e0;
@@ -110,12 +146,33 @@
             flex: 1;
             text-align: center;
             font-size: 12px;
-            color: #333;
+            color: #8e8e93;
             text-decoration: none;
+            padding: 4px 0;
         }
         
         .nav-item.active {
             color: #007aff;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: #8e8e93;
+            margin: 8px 0;
+        }
+        
+        .highlight {
+            font-weight: 600;
+            color: #000000;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            padding-bottom: 60px;
         }
         
         .stars-options {
@@ -163,26 +220,23 @@
         .checkbox input {
             margin-right: 10px;
         }
-        
-        .page {
-            display: none;
-        }
-        
-        .page.active {
-            display: block;
-            padding-bottom: 60px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>WalletStars | Купить звёзды</header>
         
+        <!-- Блок пользователя -->
+        <div class="user-info">
+            <div class="user-avatar" id="user-avatar"></div>
+            <div class="user-name" id="user-name">Загрузка...</div>
+        </div>
+        
         <!-- Кошелёк -->
         <div class="page active" id="wallet">
             <div class="content">
                 <h2>Заберите</h2>
-                <h3>#233697</h3>
+                <h3 id="wallet-id">#233697</h3>
                 <hr>
                 <div class="button-row">
                     <button class="button secondary">К. Вывести</button>
@@ -192,19 +246,19 @@
                 <table class="balance-table">
                     <tr>
                         <td>STARS</td>
-                        <td>0</td>
+                        <td id="stars-balance">0</td>
                     </tr>
                     <tr>
                         <td>TON</td>
-                        <td>0.00</td>
+                        <td id="ton-balance">0.00</td>
                     </tr>
                     <tr>
                         <td>USDT</td>
-                        <td>0.00</td>
+                        <td id="usdt-balance">0.00</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>08</td>
+                        <td id="bonus-balance">08</td>
                     </tr>
                 </table>
                 
@@ -212,7 +266,7 @@
                 <h3>История транзакций</h3>
                 <hr>
                 <h3>Купить звёзды</h3>
-                <p>Покупай телеграм звезды выгодно</p>
+                <p class="info-text">Покупай телеграм звезды выгодно</p>
             </div>
         </div>
         
@@ -220,12 +274,12 @@
         <div class="page" id="market">
             <div class="content">
                 <h2>Маркет WalletStars</h2>
-                <p>Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
+                <p class="info-text">Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
                 <hr>
                 <h3>Купить звёзды</h3>
-                <button class="button" style="width: 100%; margin: 10px 0;">Купить</button>
+                <button class="button" style="width: 100%; margin: 10px 0;" id="buy-btn">Купить</button>
                 <h3>Продать звёзды</h3>
-                <button class="button secondary" style="width: 100%; margin: 10px 0;">Продать</button>
+                <button class="button secondary" style="width: 100%; margin: 10px 0;" id="sell-btn">Продать</button>
             </div>
         </div>
         
@@ -233,7 +287,7 @@
         <div class="page" id="checks">
             <div class="content">
                 <h2>Stars Чеки</h2>
-                <p>Чеки - уникальная функция нашего кошелька, с помощью которой вы можете делиться звёздами с другими пользователями</p>
+                <p class="info-text">Чеки - уникальная функция нашего кошелька, с помощью которой вы можете делиться звёздами с другими пользователями</p>
                 <p>1 акт. ▼<br>По 1 - 100.000 ▼</p>
                 <p>Если без пароля - оставь пустым</p>
                 <hr>
@@ -250,10 +304,10 @@
             <div class="content">
                 <div class="percentage">50%</div>
                 <h3>Твой процент</h3>
-                <div class="referral-link">https://t.me/WalletStarsBot?startapp=5533141496</div>
-                <p>0<br>Приглашено</p>
-                <p>0.00 TON<br>Заработок</p>
-                <button class="button" style="width: 100%;">Пригласить</button>
+                <div class="referral-link" id="ref-link">https://t.me/WalletStarsBot?startapp=loading...</div>
+                <p id="invites-count">0<br>Приглашено</p>
+                <p id="earnings">0.00 TON<br>Заработок</p>
+                <button class="button" style="width: 100%;" id="invite-btn">Пригласить</button>
             </div>
         </div>
         
@@ -264,22 +318,22 @@
                 <hr>
                 <h3>Себе</h3>
                 <div style="background-color: #f0f0f0; padding: 10px; border-radius: 8px; margin: 10px 0;">
-                    <p><strong>50</strong></p>
+                    <p><strong id="selected-amount">50</strong></p>
                     <p>STARS</p>
-                    <p>≈0.2919</p>
+                    <p>≈<span id="selected-price">0.2919</span></p>
                     <p>TON</p>
                 </div>
                 
                 <div class="stars-options">
-                    <div class="star-option active">50 ★</div>
-                    <div class="star-option">100 ★</div>
-                    <div class="star-option">500 ★</div>
-                    <div class="star-option">1000 ★</div>
-                    <div class="star-option">5000 ★</div>
+                    <div class="star-option active" data-amount="50" data-price="0.2919">50 ★</div>
+                    <div class="star-option" data-amount="100" data-price="0.5838">100 ★</div>
+                    <div class="star-option" data-amount="500" data-price="2.9190">500 ★</div>
+                    <div class="star-option" data-amount="1000" data-price="5.8380">1000 ★</div>
+                    <div class="star-option" data-amount="5000" data-price="29.1900">5000 ★</div>
                 </div>
                 
                 <div class="stars-options">
-                    <div class="star-option">TON</div>
+                    <div class="star-option active">TON</div>
                     <div class="star-option">RUB</div>
                     <div class="star-option">RUB</div>
                 </div>
@@ -301,25 +355,25 @@
                     <div class="star-option">VISA</div>
                 </div>
                 
-                <p>Покупая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
+                <p class="info-text">Покупая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
                 <hr>
-                <button class="button" style="width: 100%;">Купить звёзды</button>
+                <button class="button" style="width: 100%;" id="confirm-buy">Купить звёзды</button>
             </div>
         </div>
         
         <!-- Продажа звёзд -->
         <div class="page" id="sell-stars">
             <div class="content">
-                <p>Количество звёзд<br>50</p>
-                <p>Вы получите:<br>0.45 😊</p>
-                <p>Продавая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
-                <button class="button" style="width: 100%; margin-top: 20px;">Продать звёзды</button>
+                <p>Количество звёзд<br><span id="sell-amount">50</span></p>
+                <p>Вы получите:<br><span id="receive-amount">0.45</span> 😊</p>
+                <p class="info-text">Продавая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
+                <button class="button" style="width: 100%; margin-top: 20px;" id="confirm-sell">Продать звёзды</button>
             </div>
         </div>
         
         <!-- Навигация -->
         <div class="nav">
-            <a href="#" class="nav-item active" data-page="wallet">Кошелёк</a>
+            <a href="#" class="nav-item active" data-page="wallet"><span class="highlight">Кошелёк</span></a>
             <a href="#" class="nav-item" data-page="market">Маркет</a>
             <a href="#" class="nav-item" data-page="checks">Чеки</a>
             <a href="#" class="nav-item" data-page="partnership">Партнёрство</a>
@@ -328,6 +382,49 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация Telegram WebApp
+            const tg = window.Telegram.WebApp;
+            
+            // Показываем кнопку "Назад"
+            tg.BackButton.show();
+            tg.BackButton.onClick(() => {
+                window.history.back();
+            });
+            
+            // Получаем данные пользователя
+            const user = tg.initDataUnsafe.user;
+            
+            // Устанавливаем данные пользователя
+            if (user) {
+                // Имя пользователя
+                const userName = document.getElementById('user-name');
+                userName.textContent = user.first_name || user.username || 'Пользователь';
+                
+                // Аватар пользователя
+                const avatar = document.getElementById('user-avatar');
+                if (user.photo_url) {
+                    avatar.style.backgroundImage = `url(${user.photo_url})`;
+                    avatar.textContent = '';
+                } else {
+                    // Если нет фото, показываем инициалы
+                    const firstNameLetter = user.first_name ? user.first_name[0] : 'П';
+                    const lastNameLetter = user.last_name ? user.last_name[0] : '';
+                    avatar.textContent = `${firstNameLetter}${lastNameLetter}`;
+                }
+                
+                // Генерируем реферальную ссылку
+                const refLink = document.getElementById('ref-link');
+                refLink.textContent = `https://t.me/WalletStarsBot?startapp=${user.id}`;
+                refLink.onclick = () => {
+                    tg.openTelegramLink(`https://t.me/WalletStarsBot?startapp=${user.id}`);
+                };
+            } else {
+                // Заглушка для тестирования вне Telegram
+                document.getElementById('user-name').textContent = 'Иван Иванов';
+                document.getElementById('user-avatar').textContent = 'ИИ';
+                document.getElementById('ref-link').textContent = 'https://t.me/WalletStarsBot?startapp=5533141496';
+            }
+            
             // Навигация по страницам
             const navItems = document.querySelectorAll('.nav-item');
             const pages = document.querySelectorAll('.page');
@@ -344,31 +441,77 @@
                     this.classList.add('active');
                     const pageId = this.getAttribute('data-page');
                     document.getElementById(pageId).classList.add('active');
+                    
+                    // Показываем/скрываем кнопку "Назад"
+                    if (pageId === 'wallet') {
+                        tg.BackButton.hide();
+                    } else {
+                        tg.BackButton.show();
+                    }
                 });
             });
             
             // Обработка кнопок в маркете
-            const buyBtn = document.querySelector('#market .button:first-child');
-            const sellBtn = document.querySelector('#market .button.secondary');
-            
-            buyBtn.addEventListener('click', function() {
+            document.getElementById('buy-btn').addEventListener('click', function() {
                 pages.forEach(page => page.classList.remove('active'));
                 document.getElementById('buy-stars').classList.add('active');
+                tg.BackButton.show();
             });
             
-            sellBtn.addEventListener('click', function() {
+            document.getElementById('sell-btn').addEventListener('click', function() {
                 pages.forEach(page => page.classList.remove('active'));
                 document.getElementById('sell-stars').classList.add('active');
+                tg.BackButton.show();
             });
             
-            // Выбор количества звёзд
-            const starOptions = document.querySelectorAll('.star-option');
+            // Выбор количества звёзд для покупки
+            const starOptions = document.querySelectorAll('#buy-stars .star-option');
             starOptions.forEach(option => {
                 option.addEventListener('click', function() {
+                    if (!this.dataset.amount) return;
+                    
                     starOptions.forEach(opt => opt.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    document.getElementById('selected-amount').textContent = this.dataset.amount;
+                    document.getElementById('selected-price').textContent = this.dataset.price;
                 });
             });
+            
+            // Кнопка "Купить звёзды"
+            document.getElementById('confirm-buy').addEventListener('click', function() {
+                const amount = document.getElementById('selected-amount').textContent;
+                alert(`Покупка ${amount} звёзд выполнена!`);
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('wallet').classList.add('active');
+                navItems.forEach(navItem => navItem.classList.remove('active'));
+                document.querySelector('[data-page="wallet"]').classList.add('active');
+                tg.BackButton.hide();
+            });
+            
+            // Кнопка "Продать звёзды"
+            document.getElementById('confirm-sell').addEventListener('click', function() {
+                const amount = document.getElementById('sell-amount').textContent;
+                alert(`Продажа ${amount} звёзд выполнена!`);
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('wallet').classList.add('active');
+                navItems.forEach(navItem => navItem.classList.remove('active'));
+                document.querySelector('[data-page="wallet"]').classList.add('active');
+                tg.BackButton.hide();
+            });
+            
+            // Кнопка "Пригласить"
+            document.getElementById('invite-btn').addEventListener('click', function() {
+                tg.share(`Присоединяйся к WalletStars и получай бонусы! ${document.getElementById('ref-link').textContent}`);
+            });
+            
+            // Имитация загрузки данных кошелька
+            setTimeout(() => {
+                document.getElementById('wallet-id').textContent = `#${Math.floor(100000 + Math.random() * 900000)}`;
+                document.getElementById('stars-balance').textContent = '150';
+                document.getElementById('ton-balance').textContent = '5.25';
+                document.getElementById('usdt-balance').textContent = '10.00';
+            }, 500);
         });
     </script>
 </body>
