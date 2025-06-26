@@ -3,428 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastStars</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>WalletStars | Купить звёзды</title>
     <style>
-        :root {
-            --primary: #3390ec;
-            --secondary: #2a7bc8;
-            --accent: #ffc107;
-            --dark: #17212b;
-            --light: #f5f5f5;
-            --success: #28a745;
-            --border: #e0e0e0;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-
+        
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.5;
-            padding-bottom: 60px;
+            background-color: #f5f5f5;
+            color: #333;
+            max-width: 100%;
+            overflow-x: hidden;
         }
-
-        .page {
-            display: none;
-            padding: 15px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px;
-            text-align: center;
+        
+        .container {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
             position: relative;
-            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
-        h1 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 15px 0 10px;
-            color: var(--dark);
-        }
-
-        h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 10px 0;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
+        
+        header {
             padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
-        }
-
-        .btn {
-            display: block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #e0e0e0;
             text-align: center;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.2s;
+            background-color: #f9f9f9;
         }
-
-        .btn:active {
-            transform: scale(0.98);
+        
+        .content {
+            padding: 15px;
         }
-
-        .btn-outline {
-            background: white;
-            border: 1px solid var(--primary);
-            color: var(--primary);
+        
+        h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
         }
-
-        .btn-accent {
-            background: linear-gradient(to right, #ff9800, #ffc107);
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 15px 0;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            border-top: 1px solid var(--border);
-            z-index: 100;
-        }
-
-        .nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 12px 5px;
-            font-size: 12px;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .nav-item.active {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .stats {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .stat-label {
+        
+        h3 {
             font-size: 14px;
-            color: #666;
-            margin-top: 5px;
+            margin: 10px 0;
         }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            background-color: var(--success);
-            color: white;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 5px;
+        
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 10px 0;
         }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 12px;
-        }
-
-        table {
+        
+        .balance-table {
             width: 100%;
             border-collapse: collapse;
             margin: 10px 0;
+        }
+        
+        .balance-table td {
+            padding: 5px 0;
+        }
+        
+        .balance-table td:last-child {
+            text-align: right;
+        }
+        
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        
+        .button {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
             font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
         }
-
-        th, td {
+        
+        .button.secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 430px;
+            display: flex;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .nav-item.active {
+            color: #007aff;
+        }
+        
+        .stars-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .star-option {
+            background-color: #f0f0f0;
             padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 60px;
         }
-
-        th {
-            color: #666;
-            font-weight: 500;
+        
+        .star-option.active {
+            background-color: #007aff;
+            color: white;
         }
-
-        /* Темная тема */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: white;
-            }
-
-            .card {
-                background-color: #1e1e1e;
-                border-color: #333;
-            }
-
-            .nav {
-                background-color: #1e1e1e;
-                border-color: #333;
-            }
-
-            .stat-label, th {
-                color: #aaa;
-            }
-
-            .divider {
-                background-color: #333;
-            }
-
-            .menu-item {
-                border-color: #333;
-            }
-
-            .btn-outline {
-                background-color: #1e1e1e;
-                color: white;
-            }
+        
+        .referral-link {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 12px;
+        }
+        
+        .percentage {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .checkbox {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox input {
+            margin-right: 10px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            padding-bottom: 60px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1 id="header-title">FastStars 2024</h1>
-    </header>
-
-    <!-- Страница 1: Главная -->
-    <div class="page active" id="page1">
-        <div class="card">
-            <h2>FastStars</h2>
-            
-            <h3>Вывести</h3>
-            <div class="menu-item">
-                <span>STARS</span>
-            </div>
-            <div class="menu-item">
-                <span>TON</span>
-            </div>
-            <div class="menu-item">
-                <span>Купить звёзды</span>
-            </div>
-            <p style="font-size: 14px; color: #666; margin-top: 5px;">
-                Покупай телеграм звезды выгодно
-            </p>
-            
-            <h3 style="margin-top: 20px;">История транзакций</h3>
-            <table>
-                <thead>
+    <div class="container">
+        <header>WalletStars | Купить звёзды</header>
+        
+        <!-- Кошелёк -->
+        <div class="page active" id="wallet">
+            <div class="content">
+                <h2>Заберите</h2>
+                <h3>#233697</h3>
+                <hr>
+                <div class="button-row">
+                    <button class="button secondary">К. Вывести</button>
+                    <button class="button">Пополнить</button>
+                </div>
+                
+                <table class="balance-table">
                     <tr>
-                        <th>Концепт</th>
-                        <th>Маркет</th>
-                        <th>Чеки</th>
-                        <th>Партнёрство</th>
+                        <td>STARS</td>
+                        <td>0</td>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td>@WalletStarsBot</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>TON</td>
+                        <td>0.00</td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Страница 2: Маркет -->
-    <div class="page" id="page2">
-        <div class="card">
-            <h2>Маркет FastStars</h2>
-            <p>Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
-            
-            <div class="divider"></div>
-            
-            <h3>Купить звёзды</h3>
-            <button class="btn">Купить</button>
-            
-            <div class="divider"></div>
-            
-            <h3>Продать звёзды</h3>
-            <button class="btn">Продать</button>
-            
-            <div class="divider"></div>
-            
-            <div class="menu-item">
-                <span>Кошелёк</span>
-            </div>
-            <div class="menu-item">
-                <span>Маркет</span>
-            </div>
-            <div class="menu-item">
-                <span>Чеки</span>
-            </div>
-            <div class="menu-item">
-                <span>Партнёрство</span>
+                    <tr>
+                        <td>USDT</td>
+                        <td>0.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>08</td>
+                    </tr>
+                </table>
+                
+                <hr>
+                <h3>История транзакций</h3>
+                <hr>
+                <h3>Купить звёзды</h3>
+                <p>Покупай телеграм звезды выгодно</p>
             </div>
         </div>
         
-        <div class="footer">
-            @WalletStarsBot
-        </div>
-    </div>
-
-    <!-- Страница 3: Партнерка -->
-    <div class="page" id="page3">
-        <div class="card">
-            <h2>FastStars | Купить Звёзды</h2>
-            
-            <div class="stats">
-                <span class="badge">50%</span>
-                <p class="stat-label">Твой процент</p>
-            </div>
-            
-            <div class="divider"></div>
-            
-            <p class="stat-label">Приглашено</p>
-            <p class="stat-value">0</p>
-            
-            <p class="stat-label">Заработок</p>
-            <p class="stat-value">0.00 TON</p>
-            
-            <button class="btn btn-accent" id="invite-btn">Пригласить</button>
-            
-            <div class="divider"></div>
-            
-            <div class="menu-item">
-                <span>Кошелёк</span>
-            </div>
-            <div class="menu-item">
-                <span>Маркет</span>
-            </div>
-            <div class="menu-item">
-                <span>Чеки</span>
-            </div>
-            <div class="menu-item">
-                <span>Партнёрство</span>
+        <!-- Маркет -->
+        <div class="page" id="market">
+            <div class="content">
+                <h2>Маркет WalletStars</h2>
+                <p>Покупай и продавай звёзды. Дари Premium своим друзьям и не только.</p>
+                <hr>
+                <h3>Купить звёзды</h3>
+                <button class="button" style="width: 100%; margin: 10px 0;">Купить</button>
+                <h3>Продать звёзды</h3>
+                <button class="button secondary" style="width: 100%; margin: 10px 0;">Продать</button>
             </div>
         </div>
         
-        <div class="footer">
-            @WalletStarsBot
+        <!-- Чеки -->
+        <div class="page" id="checks">
+            <div class="content">
+                <h2>Stars Чеки</h2>
+                <p>Чеки - уникальная функция нашего кошелька, с помощью которой вы можете делиться звёздами с другими пользователями</p>
+                <p>1 акт. ▼<br>По 1 - 100.000 ▼</p>
+                <p>Если без пароля - оставь пустым</p>
+                <hr>
+                <h3>Создать чек</h3>
+                <div class="checkbox">
+                    <input type="checkbox" id="history">
+                    <label for="history">История чеков</label>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!-- Навигационное меню -->
-    <div class="nav">
-        <div class="nav-item active" data-page="page1">
-            <i>🏠</i><br>Главная
+        
+        <!-- Партнёрство -->
+        <div class="page" id="partnership">
+            <div class="content">
+                <div class="percentage">50%</div>
+                <h3>Твой процент</h3>
+                <div class="referral-link">https://t.me/WalletStarsBot?startapp=5533141496</div>
+                <p>0<br>Приглашено</p>
+                <p>0.00 TON<br>Заработок</p>
+                <button class="button" style="width: 100%;">Пригласить</button>
+            </div>
         </div>
-        <div class="nav-item" data-page="page2">
-            <i>🛒</i><br>Маркет
+        
+        <!-- Покупка звёзд -->
+        <div class="page" id="buy-stars">
+            <div class="content">
+                <p>Введите @username получателя</p>
+                <hr>
+                <h3>Себе</h3>
+                <div style="background-color: #f0f0f0; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                    <p><strong>50</strong></p>
+                    <p>STARS</p>
+                    <p>≈0.2919</p>
+                    <p>TON</p>
+                </div>
+                
+                <div class="stars-options">
+                    <div class="star-option active">50 ★</div>
+                    <div class="star-option">100 ★</div>
+                    <div class="star-option">500 ★</div>
+                    <div class="star-option">1000 ★</div>
+                    <div class="star-option">5000 ★</div>
+                </div>
+                
+                <div class="stars-options">
+                    <div class="star-option">TON</div>
+                    <div class="star-option">RUB</div>
+                    <div class="star-option">RUB</div>
+                </div>
+                
+                <div class="stars-options">
+                    <div class="star-option">TON</div>
+                    <div class="star-option">c6n</div>
+                    <div class="star-option">MMA</div>
+                </div>
+                
+                <div class="stars-options">
+                    <div class="star-option">CS2</div>
+                    <div class="star-option">USD</div>
+                    <div class="star-option">EUR</div>
+                </div>
+                
+                <div class="stars-options">
+                    <div class="star-option">VISA</div>
+                    <div class="star-option">VISA</div>
+                </div>
+                
+                <p>Покупая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
+                <hr>
+                <button class="button" style="width: 100%;">Купить звёзды</button>
+            </div>
         </div>
-        <div class="nav-item" data-page="page3">
-            <i>👥</i><br>Партнерка
+        
+        <!-- Продажа звёзд -->
+        <div class="page" id="sell-stars">
+            <div class="content">
+                <p>Количество звёзд<br>50</p>
+                <p>Вы получите:<br>0.45 😊</p>
+                <p>Продавая «Telegram Stars», вы соглашаетесь с правилами сервиса.</p>
+                <button class="button" style="width: 100%; margin-top: 20px;">Продать звёзды</button>
+            </div>
+        </div>
+        
+        <!-- Навигация -->
+        <div class="nav">
+            <a href="#" class="nav-item active" data-page="wallet">Кошелёк</a>
+            <a href="#" class="nav-item" data-page="market">Маркет</a>
+            <a href="#" class="nav-item" data-page="checks">Чеки</a>
+            <a href="#" class="nav-item" data-page="partnership">Партнёрство</a>
         </div>
     </div>
 
     <script>
-        // Инициализация Telegram WebApp
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        
-        // Навигация между страницами
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                // Убираем активный класс у всех
-                document.querySelectorAll('.nav-item').forEach(i => {
-                    i.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Навигация по страницам
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Убираем активный класс у всех элементов
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Добавляем активный класс к выбранному элементу
+                    this.classList.add('active');
+                    const pageId = this.getAttribute('data-page');
+                    document.getElementById(pageId).classList.add('active');
                 });
-                document.querySelectorAll('.page').forEach(p => {
-                    p.classList.remove('active');
-                });
-                
-                // Добавляем активный класс текущему
-                this.classList.add('active');
-                const pageId = this.getAttribute('data-page');
-                document.getElementById(pageId).classList.add('active');
-                
-                // Обновляем заголовок
-                updateHeaderTitle(pageId);
             });
-        });
-        
-        // Обновление заголовка
-        function updateHeaderTitle(pageId) {
-            const titles = {
-                'page1': '2024',
-                'page2': 'Маркет FastStars',
-                'page3': 'FastStars | Купить Звёзды'
-            };
-            document.getElementById('header-title').textContent = titles[pageId];
-        }
-        
-        // Кнопка приглашения
-        document.getElementById('invite-btn').addEventListener('click', function() {
-            tg.openTelegramLink('https://t.me/WalletStarsBot?startapp=1072790585');
-        });
-        
-        // Анимация при загрузке
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.querySelector('.page.active').style.opacity = 1;
-            }, 100);
+            
+            // Обработка кнопок в маркете
+            const buyBtn = document.querySelector('#market .button:first-child');
+            const sellBtn = document.querySelector('#market .button.secondary');
+            
+            buyBtn.addEventListener('click', function() {
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('buy-stars').classList.add('active');
+            });
+            
+            sellBtn.addEventListener('click', function() {
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('sell-stars').classList.add('active');
+            });
+            
+            // Выбор количества звёзд
+            const starOptions = document.querySelectorAll('.star-option');
+            starOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    starOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
         });
     </script>
 </body>
